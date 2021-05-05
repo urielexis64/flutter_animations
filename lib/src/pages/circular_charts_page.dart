@@ -26,15 +26,23 @@ class _CircularChartsPageState extends State<CircularChartsPage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomRadialProgress(
                   percentage: percentage,
-                  color: Colors.pinkAccent,
+                  gradient: LinearGradient(colors: [
+                    Colors.blueAccent,
+                    Colors.limeAccent,
+                    Colors.redAccent,
+                    Colors.orangeAccent
+                  ]),
                 ),
                 CustomRadialProgress(
                   percentage: percentage,
-                  color: Colors.redAccent,
+                  gradient: LinearGradient(colors: [
+                    Colors.blueAccent,
+                    Colors.limeAccent,
+                  ]),
                 ),
               ],
             ),
@@ -43,11 +51,17 @@ class _CircularChartsPageState extends State<CircularChartsPage> {
               children: [
                 CustomRadialProgress(
                   percentage: percentage,
-                  color: Colors.orangeAccent,
+                  gradient: LinearGradient(colors: [
+                    Colors.purpleAccent,
+                    Colors.lightBlueAccent,
+                  ]),
                 ),
                 CustomRadialProgress(
                   percentage: percentage,
-                  color: Colors.purpleAccent,
+                  gradient: LinearGradient(colors: [
+                    Colors.amberAccent,
+                    Colors.lightBlueAccent,
+                  ]),
                 ),
               ],
             )
@@ -60,8 +74,10 @@ class _CircularChartsPageState extends State<CircularChartsPage> {
 
 class CustomRadialProgress extends StatelessWidget {
   final color;
+  final gradient;
 
-  const CustomRadialProgress({@required this.percentage, @required this.color});
+  const CustomRadialProgress(
+      {@required this.percentage, this.color, this.gradient});
 
   final double percentage;
 
@@ -72,7 +88,8 @@ class CustomRadialProgress extends StatelessWidget {
         height: 150,
         child: RadialProgress(
           percentage: percentage,
-          primaryColor: color,
+          primaryColor: color != null ? color : null,
+          gradient: gradient != null ? gradient : null,
           secondaryColor: Colors.grey[200],
           primaryStroke: 10,
           secondaryStroke: 5,

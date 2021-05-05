@@ -1,6 +1,8 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class RadialProgress extends StatefulWidget {
   final double percentage;
@@ -8,14 +10,15 @@ class RadialProgress extends StatefulWidget {
   final Color secondaryColor;
   final double primaryStroke;
   final double secondaryStroke;
+  final Gradient gradient;
 
-  const RadialProgress({
-    @required this.percentage,
-    this.primaryColor = Colors.pink,
-    this.secondaryColor = Colors.grey,
-    this.primaryStroke = 10,
-    this.secondaryStroke = 5,
-  });
+  const RadialProgress(
+      {@required this.percentage,
+      this.primaryColor,
+      this.secondaryColor = Colors.grey,
+      this.primaryStroke = 10,
+      this.secondaryStroke = 5,
+      this.gradient});
 
   @override
   _RadialProgressState createState() => _RadialProgressState();
@@ -28,8 +31,6 @@ class _RadialProgressState extends State<RadialProgress>
 
   @override
   void initState() {
-    assert(widget.primaryStroke >= widget.secondaryStroke,
-        'Background stroke width can\'t be bigger than stroke width');
     _lastPercentage = widget.percentage;
     _controller =
         AnimationController(vsync: this, duration: Duration(milliseconds: 250));
@@ -45,6 +46,11 @@ class _RadialProgressState extends State<RadialProgress>
 
   @override
   Widget build(BuildContext context) {
+    assert(widget.gradient == null || widget.primaryColor == null,
+        'Cannot provide both gradient and a color.');
+    assert(widget.primaryStroke >= widget.secondaryStroke,
+        'Background stroke width can\'t be bigger than stroke width');
+
     _controller.forward(from: 0);
 
     final differenceAnim = widget.percentage - _lastPercentage;
@@ -61,8 +67,10 @@ class _RadialProgressState extends State<RadialProgress>
               painter: _RadialProgressPainter(
                   percentage: (widget.percentage - differenceAnim) +
                       (differenceAnim * _controller.value),
-                  primaryColor: widget.primaryColor,
+                  primaryColor:
+                      widget.primaryColor != null ? widget.primaryColor : null,
                   secondaryColor: widget.secondaryColor,
+                  gradient: widget.gradient != null ? widget.gradient : null,
                   primaryStroke: widget.primaryStroke,
                   secondaryStroke: widget.secondaryStroke),
             ));
@@ -77,6 +85,7 @@ class _RadialProgressPainter extends CustomPainter {
   final Color secondaryColor;
   final double primaryStroke;
   final double secondaryStroke;
+  final Gradient gradient;
 
   _RadialProgressPainter({
     @required this.percentage,
@@ -84,10 +93,13 @@ class _RadialProgressPainter extends CustomPainter {
     this.secondaryColor,
     this.primaryStroke = 10,
     this.secondaryStroke = 5,
+    this.gradient,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
+    final Rect rect = Rect.fromCircle(center: Offset(0, 0), radius: 180);
+
     // Circle completed
     Paint paint = Paint()
       ..strokeWidth = secondaryStroke
@@ -102,9 +114,14 @@ class _RadialProgressPainter extends CustomPainter {
     // Arc
     Paint arcPaint = Paint()
       ..strokeWidth = primaryStroke
-      ..color = primaryColor
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
+
+    if (primaryColor != null) {
+      arcPaint.color = primaryColor;
+    } else {
+      arcPaint.shader = gradient.createShader(rect);
+    }
 
     // Filling part
     double arcAngle = 2 * pi * (percentage / 100);

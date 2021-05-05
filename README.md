@@ -1,16 +1,9 @@
 # Flutter Painter Animations
 
-A new Flutter project.
+Animations and custom widgets with CustomPainter
 
-## Getting Started
+## Demo
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+| Headers Page | Animated Page | Circular Charts Page |
+| :-: | :-: | --- |
+| ![](https://github.com/urielexis64/flutter_animations/blob/51a5d664fc09010282785a38464da8c153003881/assets/headers%20page.jpeg) | ![](https://github.com/urielexis64/flutter_animations/blob/9703b779e9ec37774da73ebb192e4ce8230649ee/lib/src/pages/animations_page.dart) | ![](https://github.com/urielexis64/flutter_animations/blob/51a5d664fc09010282785a38464da8c153003881/assets/ciruclar%20charts%20page.jpeg) |

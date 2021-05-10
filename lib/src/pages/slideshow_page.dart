@@ -5,15 +5,20 @@ import 'package:flutter_svg/flutter_svg.dart';
 class SlideshowPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Slideshow(
-        slides: [
-          SvgPicture.asset('assets/svgs/slide_3.svg'),
-          SvgPicture.asset('assets/svgs/slide_3.svg'),
-          SvgPicture.asset('assets/svgs/slide_3.svg'),
-          SvgPicture.asset('assets/svgs/slide_3.svg'),
-          SvgPicture.asset('assets/svgs/slide_3.svg'),
-        ],
+    return SafeArea(
+      child: Scaffold(
+        body: Slideshow(
+          topDots: true,
+          primaryColor: Colors.red,
+          secondaryColor: Colors.amber,
+          slides: [
+            SvgPicture.asset('assets/svgs/slide_3.svg'),
+            SvgPicture.asset('assets/svgs/slide_3.svg'),
+            SvgPicture.asset('assets/svgs/slide_3.svg'),
+            SvgPicture.asset('assets/svgs/slide_3.svg'),
+            SvgPicture.asset('assets/svgs/slide_3.svg'),
+          ],
+        ),
       ),
     );
   }

@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-
 import 'package:custom_painter/src/models/slider_model.dart';
 
 class Slideshow extends StatelessWidget {
   final List<Widget> slides;
+  final bool topDots;
+  final Color primaryColor;
+  final Color secondaryColor;
 
-  const Slideshow({@required this.slides});
+  const Slideshow({
+    @required this.slides,
+    this.topDots,
+    this.primaryColor = Colors.blue,
+    this.secondaryColor = Colors.grey,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +21,11 @@ class Slideshow extends StatelessWidget {
       create: (_) => SliderModel(),
       child: Center(
         child: Column(
+          verticalDirection:
+              topDots ? VerticalDirection.up : VerticalDirection.down,
           children: [
             Expanded(child: _Slides(this.slides)),
-            _Dots(this.slides.length)
+            _Dots(this.slides.length, primaryColor, secondaryColor),
           ],
         ),
       ),
@@ -27,8 +35,13 @@ class Slideshow extends StatelessWidget {
 
 class _Dots extends StatelessWidget {
   final int totalSlides;
+  final Color primaryColor;
+  final Color secondaryColor;
+
   const _Dots(
     this.totalSlides,
+    this.primaryColor,
+    this.secondaryColor,
   );
 
   @override
@@ -38,7 +51,8 @@ class _Dots extends StatelessWidget {
       height: 70,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: List.generate(totalSlides, (index) => _Dot(index)),
+        children: List.generate(
+            totalSlides, (index) => _Dot(index, primaryColor, secondaryColor)),
       ),
     );
   }
@@ -46,8 +60,10 @@ class _Dots extends StatelessWidget {
 
 class _Dot extends StatelessWidget {
   final int index;
+  final Color primaryColor;
+  final Color secondaryColor;
 
-  const _Dot(this.index);
+  const _Dot(this.index, this.primaryColor, this.secondaryColor);
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +76,8 @@ class _Dot extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
           color: pageViewIndex >= index - 0.5 && pageViewIndex <= index + 0.5
-              ? Colors.blue
-              : Colors.grey,
+              ? primaryColor
+              : secondaryColor,
           shape: BoxShape.circle),
     );
   }

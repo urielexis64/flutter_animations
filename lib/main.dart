@@ -1,4 +1,3 @@
-import 'package:custom_painter/src/pages/circular_charts_page.dart';
 import 'package:custom_painter/src/pages/slideshow_page.dart';
 import 'package:flutter/material.dart';
 

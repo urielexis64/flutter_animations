@@ -67,7 +67,7 @@ class PinterestGrid extends StatefulWidget {
 }
 
 class _PinterestGridState extends State<PinterestGrid> {
-  final List<int> items = List.generate(200, (index) => index);
+  final List<int> items = List.generate(50, (index) => index);
   ScrollController controller = ScrollController();
   double lastScrollValue = 0;
 
@@ -115,16 +115,26 @@ class _PinterestItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-        margin: EdgeInsets.all(5),
-        decoration: BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.all(Radius.circular(12))),
-        child: new Center(
+      margin: EdgeInsets.all(5),
+      clipBehavior: Clip.antiAlias,
+      decoration:
+          BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(12))),
+      /*  child: new Center(
           child: new CircleAvatar(
             backgroundColor: Colors.white,
             child: new Text('$index'),
           ),
-        ));
+        ) */
+      child: FadeInImage(
+        image: NetworkImage(
+          'https://picsum.photos/id/$index/200',
+        ),
+        placeholder: NetworkImage(
+          'https://media3.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif',
+        ),
+        fit: BoxFit.cover,
+      ),
+    );
   }
 }
 

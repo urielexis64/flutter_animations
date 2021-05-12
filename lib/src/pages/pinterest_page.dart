@@ -27,7 +27,37 @@ class _PinterestMenuLocated extends StatelessWidget {
         child: Container(
             height: 100,
             width: width,
-            child: Align(child: PinterestMenu(show: show))));
+            child: Align(
+                child: PinterestMenu(
+              show: show,
+              items: [
+                PinterestButton(
+                    icon: Icons.pie_chart,
+                    onPressed: () {
+                      print('pie_chart');
+                    }),
+                PinterestButton(
+                    icon: Icons.search,
+                    onPressed: () {
+                      print('search');
+                    }),
+                PinterestButton(
+                    icon: Icons.notifications,
+                    onPressed: () {
+                      print('notifications');
+                    }),
+                PinterestButton(
+                    icon: Icons.supervised_user_circle,
+                    onPressed: () {
+                      print('supervised_user_circle');
+                    }),
+                PinterestButton(
+                    icon: Icons.favorite,
+                    onPressed: () {
+                      print('favorite');
+                    }),
+              ],
+            ))));
   }
 }
 
@@ -46,7 +76,7 @@ class _PinterestGridState extends State<PinterestGrid> {
     super.initState();
     controller.addListener(() {
       final provider = Provider.of<_MenuModel>(context, listen: false);
-      if (controller.offset > lastScrollValue) {
+      if (controller.offset > lastScrollValue && controller.offset > 150) {
         provider.show = false;
       } else {
         provider.show = true;
@@ -64,6 +94,7 @@ class _PinterestGridState extends State<PinterestGrid> {
   @override
   Widget build(BuildContext context) {
     return new StaggeredGridView.countBuilder(
+      physics: BouncingScrollPhysics(),
       controller: controller,
       crossAxisCount: 4,
       itemCount: items.length,

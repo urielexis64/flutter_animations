@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:custom_painter/src/widgets/big_button.dart';
 import 'package:custom_painter/src/widgets/headers.dart';
 import 'package:flutter/material.dart';
@@ -43,14 +44,17 @@ class EmergencyPage extends StatelessWidget {
     ];
 
     List<Widget> mapItems = items
-        .map((e) => BigButton(
-            icon: e.icon,
-            text: e.text,
-            color1: e.color1,
-            color2: e.color2,
-            onPress: () {
-              print(e.text);
-            }))
+        .map((e) => FadeInLeft(
+              duration: Duration(milliseconds: 400),
+              child: BigButton(
+                  icon: e.icon,
+                  text: e.text,
+                  color1: e.color1,
+                  color2: e.color2,
+                  onPress: () {
+                    print(e.text);
+                  }),
+            ))
         .toList();
 
     return Scaffold(
@@ -84,6 +88,7 @@ class _MainHeader extends StatelessWidget {
             top: 50,
             child: RawMaterialButton(
               onPressed: () {},
+              padding: EdgeInsets.all(8),
               shape: CircleBorder(),
               child: PopupMenuButton(
                 tooltip: 'Settings',
@@ -94,7 +99,11 @@ class _MainHeader extends StatelessWidget {
                   color: Colors.white,
                 ),
                 itemBuilder: (BuildContext context) {
-                  return [PopupMenuItem(child: Text('Settings'))];
+                  return [
+                    PopupMenuItem(child: Text('Settings')),
+                    PopupMenuItem(child: Text('About')),
+                    PopupMenuItem(child: Text('Another option')),
+                  ];
                 },
               ),
             ))

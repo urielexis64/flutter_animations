@@ -64,11 +64,41 @@ class EmergencyPage extends StatelessWidget {
             children: [SizedBox(height: 80), ...mapItems],
           ),
         ),
+        _MainHeader(),
+      ],
+    )));
+  }
+}
+
+class _MainHeader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
         IconHeader(
             icon: FontAwesomeIcons.carCrash,
             title: "Motor Accident",
-            subtitle: "You have requested")
+            subtitle: "You have requested"),
+        Positioned(
+            right: 0,
+            top: 50,
+            child: RawMaterialButton(
+              onPressed: () {},
+              shape: CircleBorder(),
+              child: PopupMenuButton(
+                tooltip: 'Settings',
+                iconSize: 20,
+                offset: Offset(-20, 5),
+                icon: FaIcon(
+                  FontAwesomeIcons.ellipsisV,
+                  color: Colors.white,
+                ),
+                itemBuilder: (BuildContext context) {
+                  return [PopupMenuItem(child: Text('Settings'))];
+                },
+              ),
+            ))
       ],
-    )));
+    );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:custom_painter/src/routes/routes.dart';
+import 'package:custom_painter/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class LauncherPage extends StatelessWidget {
   @override
@@ -23,7 +25,10 @@ class _OptionsList extends StatelessWidget {
       ),
       itemCount: pageRoutes.length,
       itemBuilder: (context, index) => ListTile(
-        leading: FaIcon(pageRoutes[index].icon),
+        leading: FaIcon(
+          pageRoutes[index].icon,
+          color: Colors.blue,
+        ),
         title: Text(pageRoutes[index].title),
         trailing: Icon(Icons.chevron_right, color: Colors.blue),
         onTap: () {
@@ -41,6 +46,8 @@ class _OptionsList extends StatelessWidget {
 class _MainMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
+
     return SafeArea(
       child: Drawer(
         child: Container(
@@ -63,17 +70,17 @@ class _MainMenu extends StatelessWidget {
                 leading: Icon(Icons.lightbulb_outline, color: Colors.blue),
                 title: Text('Dark Mode'),
                 trailing: Switch.adaptive(
-                    value: true,
+                    value: appTheme.darkTheme,
                     activeColor: Colors.blue,
-                    onChanged: (value) {}),
+                    onChanged: (value) => appTheme.darkTheme = value),
               ),
               ListTile(
                 leading: Icon(Icons.add_to_home_screen, color: Colors.blue),
                 title: Text('Custom Mode'),
                 trailing: Switch.adaptive(
-                    value: true,
+                    value: appTheme.customTheme,
                     activeColor: Colors.blue,
-                    onChanged: (value) {}),
+                    onChanged: (value) => appTheme.customTheme = value),
               ),
             ],
           ),

@@ -1,7 +1,11 @@
 import 'package:custom_painter/src/pages/launcher_page.dart';
+import 'package:custom_painter/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(ChangeNotifierProvider(create: (_) => ThemeChanger(), child: MyApp()));
+}
 
 class MyApp extends StatelessWidget {
   @override

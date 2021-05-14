@@ -1,3 +1,4 @@
+import 'package:custom_painter/src/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -20,12 +21,18 @@ class _OptionsList extends StatelessWidget {
       separatorBuilder: (context, i) => Divider(
         color: Colors.blue,
       ),
-      itemCount: 22,
+      itemCount: pageRoutes.length,
       itemBuilder: (context, index) => ListTile(
-        leading: FaIcon(FontAwesomeIcons.slideshare),
-        title: Text('xd'),
+        leading: FaIcon(pageRoutes[index].icon),
+        title: Text(pageRoutes[index].title),
         trailing: Icon(Icons.chevron_right, color: Colors.blue),
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => pageRoutes[index].page,
+              ));
+        },
       ),
     );
   }

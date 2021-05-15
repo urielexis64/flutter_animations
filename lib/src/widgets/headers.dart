@@ -130,17 +130,26 @@ class _HeaderPeakPainter extends CustomPainter {
 }
 
 class CurveHeader extends StatelessWidget {
+  final Color color;
+  CurveHeader({
+    @required this.color,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Container(
       height: double.infinity,
       width: double.infinity,
-      child: CustomPaint(painter: _HeaderCurvePainter()),
+      child: CustomPaint(painter: _HeaderCurvePainter(this.color)),
     );
   }
 }
 
 class _HeaderCurvePainter extends CustomPainter {
+  final Color color;
+
+  _HeaderCurvePainter(this.color);
+
   @override
   void paint(Canvas canvas, Size size) {
     final width = size.width;
@@ -154,7 +163,7 @@ class _HeaderCurvePainter extends CustomPainter {
     final path = Path();
 
     // Propiedades
-    paint.color = Color(0xff615aab);
+    paint.color = this.color;
     paint.style = PaintingStyle.fill;
     paint.shader = gradient.createShader(rect);
 

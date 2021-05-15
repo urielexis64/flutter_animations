@@ -1,5 +1,7 @@
 import 'package:custom_painter/src/widgets/radial_progress.dart';
+import 'package:custom_painter/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CircularChartsPage extends StatefulWidget {
   @override
@@ -83,6 +85,8 @@ class CustomRadialProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+
     return Container(
         width: 150,
         height: 150,
@@ -90,7 +94,7 @@ class CustomRadialProgress extends StatelessWidget {
           percentage: percentage,
           primaryColor: color != null ? color : null,
           gradient: gradient != null ? gradient : null,
-          secondaryColor: Colors.grey[200],
+          secondaryColor: appTheme.textTheme.bodyText1.color,
           primaryStroke: 10,
           secondaryStroke: 5,
         ));

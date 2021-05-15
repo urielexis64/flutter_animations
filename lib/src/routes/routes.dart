@@ -1,8 +1,8 @@
+import 'package:custom_painter/src/pages/circular_charts_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:custom_painter/src/challenges/animated_square_page.dart';
-import 'package:custom_painter/src/labs/circular_progress_page.dart';
 import 'package:custom_painter/src/pages/emergency_page.dart';
 import 'package:custom_painter/src/pages/headers_page.dart';
 import 'package:custom_painter/src/pages/pinterest_page.dart';
@@ -26,7 +26,7 @@ final pageRoutes = <_Route>[
   _Route(
       icon: FontAwesomeIcons.circleNotch,
       title: 'Progress Bar',
-      page: CircularProgressPage()),
+      page: CircularChartsPage()),
   _Route(
       icon: FontAwesomeIcons.pinterest,
       title: 'Pinterest',
